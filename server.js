@@ -5,11 +5,7 @@ const fetch = require('cross-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const corsOptions = {
-    origin: 'https://boisterous-valkyrie-90b821.netlify.app/', // Replace with your frontend's domain
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 // For Restaurant API
 app.get('/api/restaurants', async (req, res) => {
