@@ -71,6 +71,25 @@ app.get('/api/menu', async (req, res) => {
         });
 });
 
+// suggestion api
+app.get("/suggestions", async (req, res) => {
+    const query = req.query.q;
+    const url = `https://www.google.com/complete/search?client=chrome&q=${query}`
+    try {
+      const response = await fetch(url,{
+      headers:{
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+
+        }
+    });
+      const data = await response.json();
+      res.json(data); // Extract autocomplete suggestions
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch data" });
+    }
+  });
 
 app.get('/', (req, res) => {
     res.json({ "test": "Welcome to CuisineCruise! - See Live Web URL for this Server - https://foodfire-app.netlify.app" });
